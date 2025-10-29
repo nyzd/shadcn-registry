@@ -1,17 +1,33 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "nq-registry",
-  "homepage": "https://natiq.net",
-  "items": [
-    {
-      "name": "test-block",
-      "type": "registry:block",
-      "title": "Test Block",
-      "files": [{
-        "path": "./components/blocks/TestBlock.tsx",
-        "type": "registry:block"
-      }],
-      "registryDependencies": ["button"]
-    }
-  ]
+    "$schema": "https://ui.shadcn.com/schema/registry.json",
+    "name": "nq-registry",
+    "homepage": "https://natiq.net",
+    "items": [
+        {
+            "name": "active-on-visible",
+            "type": "registry:component",
+            "title": "Active On Visible",
+            "files": [
+                {
+                    "path": "./components/activeOnVisible/ActiveOnVisible.tsx",
+                    "type": "registry:component"
+                }
+            ],
+            "registryDependencies": [],
+            "dependencies": ["@yakad/use-interactions"]
+        },
+        {
+            "name": "render-by-scroll",
+            "type": "registry:component",
+            "title": "Render On Scroll",
+            "files": [
+                {
+                    "path": "./components/renderByScroll/RenderByScroll.tsx",
+                    "type": "registry:component"
+                }
+            ],
+            "registryDependencies": ["@nq/active-on-visible"],
+            "dependencies": ["@yakad/use-interactions"]
+        }
+    ]
 }

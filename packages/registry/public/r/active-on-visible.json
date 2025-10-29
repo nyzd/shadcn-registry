@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "active-on-visible",
+  "type": "registry:component",
+  "title": "Active On Visible",
+  "dependencies": [
+    "@yakad/use-interactions"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "./components/activeOnVisible/ActiveOnVisible.tsx",
+      "content": "\"use client\";\n\nimport { useImperativeHandle, useRef, useState } from \"react\";\nimport { useOnVisibilityChange } from \"@yakad/use-interactions\";\n\nexport interface ActiveOnVisibleProps\n    extends React.HTMLAttributes<HTMLDivElement> {\n    onVisibilityChange?: (visible: boolean) => void;\n    ref?: React.Ref<HTMLDivElement>;\n}\n\nexport function ActiveOnVisible({\n    onVisibilityChange,\n    style,\n    children,\n    ref,\n    ...restProps\n}: ActiveOnVisibleProps) {\n    const localRef = useRef<HTMLDivElement | null>(null);\n    const [boxHeight, setBoxHeight] = useState<number>(0);\n    // const isVisible = boxHeight === 0;\n\n    // Let the parent access our DOM node\n    useImperativeHandle(ref, () => localRef.current as HTMLDivElement);\n\n    useOnVisibilityChange((visible) => {\n        onVisibilityChange?.(visible);\n        if (visible) {\n            setBoxHeight(0);\n        } else {\n            const boxRect = localRef.current?.getBoundingClientRect();\n            setBoxHeight(boxRect!.height);\n        }\n    }, localRef);\n\n    return (\n        <div\n            ref={localRef}\n            {...restProps}\n            style={{ height: boxHeight || \"auto\", ...style }}\n        >\n            {/* <Activity mode={isVisible ? \"visible\" : \"hidden\"}> */}\n            {children}\n            {/* </Activity> */}\n        </div>\n    );\n}\n",
+      "type": "registry:component"
+    }
+  ]
+}
